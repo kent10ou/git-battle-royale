@@ -19,7 +19,7 @@ class Popular extends React.Component {
         // AJAX
         this.updateLanguage(this.state.selectedLanguage);
     }
-    
+
     updateLanguage(lang) {
         this.setState(() => {
             return {
@@ -51,5 +51,4 @@ class Popular extends React.Component {
     }
 }
 
-// module.exports = Popular;
 export default Popular;
