@@ -6,16 +6,35 @@ class PlayerInput extends React.Component {
         super(props);
         this.state = {
             username: ''
-        }
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange (event) {
-        let value = event.target.value
+        var value = event.target.value
+        console.log('value: ', value);
+        this.setState(function () {
+            return {
+                username: value
+            }
+        });
+    }
+
+    handleSubmit (event) {
+        event.preventDefault();
+
+        this.props.onSubmit(
+            this.props.id,
+            this.state.username
+        )
+        console.log('props: ', this.props)
     }
 
     render() {
         return (
-            <form className='column'>
+            <form className='column' onSubmit={this.handleSubmit}>
                 <label className='header' htmlFor='username'>
                     {this.props.label}
                 </label>
@@ -27,6 +46,12 @@ class PlayerInput extends React.Component {
                     value={this.state.username}
                     onChange={this.handleChange}
                 />
+                <button
+                    className='button'
+                    type='submit'
+                    disabled={!this.state.username}>
+                        Submit
+                </button>
             </form>
         )
     }
@@ -36,6 +61,10 @@ PlayerInput.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired
+}
+
+PlayerInput.defaultProps = {
+  label: 'Username',
 }
 
 class Battle extends React.Component {
@@ -53,10 +82,13 @@ class Battle extends React.Component {
 
     handleSubmit(id, username) {
         this.setState(function () {
+            console.log('username: ', username);
             var newState = {};
             newState[id + 'Name'] = username;
             newState[id + 'Image'] = 'https://github.com/' + username + '.png?size=200';
+            console.log(newState);
             return newState;
+
         });
     }
 
