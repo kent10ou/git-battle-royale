@@ -5,6 +5,7 @@ import Nav from './Nav';
 import Popular from './Popular';
 import Home from './Home';
 import Battle from './Battle';
+import Results from './Results';
 
 class App extends React.Component {
     render () {
@@ -15,6 +16,7 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path='/' component={Home} />
                         <Route exact path='/battle' component={Battle} />
+                        <Route path='/battle/results' component={Results} />
                         <Route path='/popular' component={Popular} />
                         // if someone goes to a path that is not one of those -> 404!
                         <Route render={function () {
